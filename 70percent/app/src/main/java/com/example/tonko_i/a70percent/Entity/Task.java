@@ -1,10 +1,12 @@
 package com.example.tonko_i.a70percent.Entity;
 
+import java.io.Serializable;
+
 /**
  * Created by User on 16.04.2017.
  */
 
-public class Task {
+public class Task implements Serializable{
     private int id;
     private double longitude;
     private double latitude;

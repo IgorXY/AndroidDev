@@ -36,7 +36,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/StageTextView"
             android:layout_marginTop="38dp"
-            android:text="TextView"
+            android:text="Задача:"
             android:textAlignment="center"
             android:textColor="#000"
             android:textSize="24sp"
@@ -64,7 +64,6 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="21dp"
-            android:onClick="CheckButtonClick"
             android:text="Проверить" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

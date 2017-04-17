@@ -76,7 +76,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void GameActivityButtonClick(View view){
+        GameProgress gameProgress = new GameProgress();
+        gameProgress.setGame(curGame);
+        gameProgress.setStage(1);
+
         Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("GameProgress", gameProgress);
         startActivity(intent);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.tonko_i.a70percent.Entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,7 +8,7 @@ import java.util.Date;
  * Created by User on 16.04.2017.
  */
 
-public class Game {
+public class Game implements Serializable {
     private int id;
     private Date start_date;
     private Date end_date;
