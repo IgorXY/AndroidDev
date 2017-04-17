@@ -16,12 +16,14 @@ import android.widget.TextView;
 
 import com.example.tonko_i.a70percent.Entity.Game;
 import com.example.tonko_i.a70percent.Entity.GameProgress;
+import com.example.tonko_i.a70percent.Entity.Task;
 
 public class GameActivity extends AppCompatActivity {
 
     private LocationListener locationListener;
     private LocationManager locationManager;
     private Button b;
+    private boolean track = false;
 
     public GameProgress curGameProgress;
 
@@ -36,7 +38,17 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onLocationChanged(Location location) {
                 TextView textView = (TextView) findViewById(R.id.DistabceTextView);
-                textView.setText(textView.getText() + " " + + location.getLongitude() + " " + location.getLatitude());
+                Task task =  curGameProgress.getGame().getTaskList().get(curGameProgress.getStage()-1);
+                curGameProgress.setDestination((int)curGameProgress.calculateDistance(
+                        location.getLatitude(), location.getLongitude(),
+                       task.getLatitude(), task.getLongitude()));
+                textView.setText("Цель: "+curGameProgress.getDestination());
+                if(curGameProgress.getDestination().equals("достигнута")){
+                    b.setEnabled(true);
+                    if(curGameProgress.getStage() == curGameProgress.getGame().getStage_amount()){
+                        b.setText("Закончить");
+                    }
+                }
             }
 
             @Override
@@ -56,6 +68,7 @@ public class GameActivity extends AppCompatActivity {
         };
 
         b = (Button)findViewById(R.id.CheckButton);
+        b.setEnabled(false);
         ConfigureGPS();
 
         Game curGame = curGameProgress.getGame();
@@ -84,13 +97,10 @@ public class GameActivity extends AppCompatActivity {
             return;
         }
         // this code won't execute IF permissions are not allowed, because in the line above there is return statement.
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //noinspection MissingPermission
-                locationManager.requestLocationUpdates("gps", 5000, 0, locationListener);
-            }
-        });
+
+        //noinspection MissingPermission
+        locationManager.requestLocationUpdates("gps", 5000, 0, locationListener);
+
     }
 
 
