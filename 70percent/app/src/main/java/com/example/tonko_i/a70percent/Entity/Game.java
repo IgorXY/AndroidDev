@@ -14,6 +14,15 @@ public class Game implements Serializable {
     private Date end_date;
     private  int stage_amount;
     private ArrayList<Task> taskList;
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public ArrayList<Task> getTaskList() {
         return taskList;

@@ -24,28 +24,34 @@ public class GameActivity extends AppCompatActivity {
     private LocationManager locationManager;
     private Button b;
     private boolean track = false;
+    private Button prevButton;
+    private Button nextButton;
 
-    public GameProgress curGameProgress;
+    public GameProgress gameProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        curGameProgress = (GameProgress) getIntent().getSerializableExtra("GameProgress");
+        gameProgress = (GameProgress) getIntent().getSerializableExtra("GameProgress");
+
+        prevButton = (Button)findViewById(R.id.prevButton);
+        nextButton = (Button)findViewById(R.id.nextButton);
+
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 TextView textView = (TextView) findViewById(R.id.DistabceTextView);
-                Task task =  curGameProgress.getGame().getTaskList().get(curGameProgress.getStage()-1);
-                curGameProgress.setDestination((int)curGameProgress.calculateDistance(
+                Task task =  gameProgress.getGame().getTaskList().get(gameProgress.getStage()-1);
+                gameProgress.setDestination((int) gameProgress.calculateDistance(
                         location.getLatitude(), location.getLongitude(),
                        task.getLatitude(), task.getLongitude()));
-                textView.setText("Цель: "+curGameProgress.getDestination());
-                if(curGameProgress.getDestination().equals("достигнута")){
+                textView.setText("Цель: "+ gameProgress.getDestination());
+                if(gameProgress.getDestination().equals("достигнута")){
                     b.setEnabled(true);
-                    if(curGameProgress.getStage() == curGameProgress.getGame().getStage_amount()){
+                    if(gameProgress.getStage() == gameProgress.getGame().getStage_amount()){
                         b.setText("Закончить");
                     }
                 }
@@ -71,11 +77,8 @@ public class GameActivity extends AppCompatActivity {
         b.setEnabled(false);
         ConfigureGPS();
 
-        Game curGame = curGameProgress.getGame();
-        TextView textView = (TextView) findViewById(R.id.StageTextView);
-        textView.setText(textView.getText() + " " + curGameProgress.getStage());
-        textView = (TextView) findViewById(R.id.DecriptionTextView);
-        textView.setText(textView.getText() + " " + curGame.getTaskList().get(curGameProgress.getStage() - 1).getDescription());
+        fillInfo();
+
     }
 
     @Override
@@ -101,6 +104,40 @@ public class GameActivity extends AppCompatActivity {
         //noinspection MissingPermission
         locationManager.requestLocationUpdates("gps", 5000, 0, locationListener);
 
+    }
+
+    public void fillInfo(){
+        Game curGame = gameProgress.getGame();
+        TextView textView = (TextView) findViewById(R.id.StageTextView);
+        textView.setText("Этап "+ gameProgress.getStage());
+        textView = (TextView) findViewById(R.id.DecriptionTextView);
+        textView.setText("Задача: " + curGame.getTaskList().get(gameProgress.getStage() - 1).getDescription());
+
+        if(gameProgress.getStage() == 1){
+            prevButton.setEnabled(false);
+        }
+        else
+            if(gameProgress.getGame().getTaskList().size() > 1){
+                prevButton.setEnabled(true);
+            }
+        if(gameProgress.getGame().getTaskList().size() == gameProgress.getStage()){
+            nextButton.setEnabled(false);
+        }
+        else
+        if(gameProgress.getGame().getTaskList().size() > 1){
+            nextButton.setEnabled(true);
+        }
+
+    }
+
+    public void previousClick(View view){
+        gameProgress.setStage(gameProgress.getStage() - 1);
+        fillInfo();
+    }
+
+    public void nextClick(View view){
+        gameProgress.setStage(gameProgress.getStage() + 1);
+        fillInfo();
     }
 
 

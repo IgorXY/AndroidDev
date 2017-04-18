@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.example.tonko_i.a70percent.GameActivity">
 
+
     <RelativeLayout
         android:layout_width="344dp"
         android:layout_height="495dp"
-        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteX="7dp"
         tools:layout_editor_absoluteY="8dp">
 
         <TextView
@@ -46,16 +47,16 @@
             android:id="@+id/DistabceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="98dp"
             android:text="Цель: "
             android:textAlignment="center"
             android:textColor="#000"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:layout_above="@+id/CheckButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <Button
             android:id="@+id/CheckButton"
@@ -63,8 +64,46 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="21dp"
-            android:text="Дальше" />
+            android:layout_marginBottom="7dp"
+            android:background="@android:color/holo_green_light"
+            android:text="Готово" />
+
+        <Button
+            android:id="@+id/prevButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/DecriptionTextView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@null"
+            android:onClick="previousClick"
+            android:text="prev"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/DecriptionTextView"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@null"
+            android:onClick="nextClick"
+            android:text="Next"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/DistabceTextView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
 
