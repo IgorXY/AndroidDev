@@ -270,6 +270,10 @@ public class MainActivity extends AppCompatActivity {
                     GameProgress gameProgress = new GameProgress();
                     gameProgress.setGame(game);
                     gameProgress.setStage(1);
+                    gameProgress.setNoteList(new ArrayList<String>());
+                    for(int i = 0; i<game.getTaskList().size(); i++) {
+                        gameProgress.getNoteList().add("");
+                    }
 
 
                     intent.putExtra("GameProgress", gameProgress);

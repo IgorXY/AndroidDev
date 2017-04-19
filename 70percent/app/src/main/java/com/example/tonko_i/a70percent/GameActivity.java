@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.tonko_i.a70percent.Entity.Game;
@@ -26,6 +27,7 @@ public class GameActivity extends AppCompatActivity {
     private boolean track = false;
     private Button prevButton;
     private Button nextButton;
+    private EditText editNote;
 
     public GameProgress gameProgress;
 
@@ -38,6 +40,7 @@ public class GameActivity extends AppCompatActivity {
         prevButton = (Button)findViewById(R.id.prevButton);
         nextButton = (Button)findViewById(R.id.nextButton);
 
+        editNote = (EditText) findViewById(R.id.noteEditText);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
@@ -112,6 +115,7 @@ public class GameActivity extends AppCompatActivity {
         textView.setText("Этап "+ gameProgress.getStage());
         textView = (TextView) findViewById(R.id.DecriptionTextView);
         textView.setText("Задача: " + curGame.getTaskList().get(gameProgress.getStage() - 1).getDescription());
+        editNote.setText(gameProgress.getNoteList().get(gameProgress.getStage()-1));
 
         if(gameProgress.getStage() == 1){
             prevButton.setEnabled(false);
@@ -138,6 +142,10 @@ public class GameActivity extends AppCompatActivity {
     public void nextClick(View view){
         gameProgress.setStage(gameProgress.getStage() + 1);
         fillInfo();
+    }
+
+    public void saveNote(View view){
+        gameProgress.getNoteList().set(gameProgress.getStage()-1, String.valueOf(editNote.getText()));
     }
 
 

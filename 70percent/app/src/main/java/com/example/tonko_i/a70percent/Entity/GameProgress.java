@@ -1,6 +1,7 @@
 package com.example.tonko_i.a70percent.Entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Tonko_I on 17/04/2017.
@@ -10,6 +11,16 @@ public class GameProgress implements Serializable{
     private Game game;
     private int stage;
     private String destination;
+    private ArrayList<String> noteList;
+
+    public ArrayList<String> getNoteList() {
+        return noteList;
+    }
+
+    public void setNoteList(ArrayList<String> noteList) {
+
+        this.noteList = noteList;
+    }
 
     public String getDestination() {
         return destination;
